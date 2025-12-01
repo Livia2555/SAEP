@@ -39,7 +39,7 @@ class UsuarioListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        return Usuario.objects.all().order_by('-id')  # Mais recente primeiro
+        return Usuario.objects.all().order_by('-id')
 
 
 class UsuarioDetailView(RetrieveUpdateDestroyAPIView):
@@ -67,7 +67,7 @@ class EstoqueListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        return Estoque.objects.all().order_by('-criado_em')  # Mais recente primeiro
+        return Estoque.objects.all().order_by('-id')
 
 
 class EstoqueDetailView(RetrieveUpdateDestroyAPIView):
@@ -84,6 +84,14 @@ class EstoqueDetailView(RetrieveUpdateDestroyAPIView):
 
 
 class EstoqueEntradaView(APIView):
+    """
+    POST /api/estoque/{id}/entrada/
+    Adiciona quantidade ao estoque (ENTRADA)
+    Body: {"quantidade": 10}
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, pk):
         try:
             estoque = Estoque.objects.get(pk=pk)
@@ -107,12 +115,34 @@ class EstoqueEntradaView(APIView):
         estoque.quantidade += quantidade
         estoque.save()
 
+        # ⭐ CRIA O REGISTRO NO HISTÓRICO ⭐
+        historico = Historico.objects.create(
+            responsavel=request.user,  # Pega o superuser logado
+            produto=estoque,
+            tipo_operacao='entrada',
+            quantidade=quantidade
+        )
+
         return Response({
             "mensagem": "Entrada registrada com sucesso",
             "id": estoque.id,
-            "novo_total": estoque.quantidade
+            "produto": estoque.tipo,
+            "responsavel": request.user.username,
+            "quantidade_adicionada": quantidade,
+            "novo_total": estoque.quantidade,
+            "historico_id": historico.id
         }, status=200)
+
+
 class EstoqueSaidaView(APIView):
+    """
+    POST /api/estoque/{id}/saida/
+    Remove quantidade do estoque (SAÍDA)
+    Body: {"quantidade": 5}
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, pk):
         try:
             estoque = Estoque.objects.get(pk=pk)
@@ -143,11 +173,24 @@ class EstoqueSaidaView(APIView):
         estoque.quantidade -= quantidade
         estoque.save()
 
+        # ⭐ CRIA O REGISTRO NO HISTÓRICO ⭐
+        historico = Historico.objects.create(
+            responsavel=request.user,  # Pega o superuser logado
+            produto=estoque,
+            tipo_operacao='saida',
+            quantidade=quantidade
+        )
+
         return Response({
             "mensagem": "Saída registrada com sucesso",
             "id": estoque.id,
-            "novo_total": estoque.quantidade
+            "produto": estoque.tipo,
+            "responsavel": request.user.username,
+            "quantidade_removida": quantidade,
+            "novo_total": estoque.quantidade,
+            "historico_id": historico.id
         }, status=200)
+
 
 # ==================== HISTORICO VIEWS ====================
 
@@ -164,7 +207,6 @@ class HistoricoListView(ListAPIView):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        # Busca com select_related para otimizar
         queryset = Historico.objects.select_related('responsavel', 'produto').all()
         
         # Filtro por produto
@@ -182,7 +224,6 @@ class HistoricoListView(ListAPIView):
         if responsavel_id:
             queryset = queryset.filter(responsavel_id=responsavel_id)
         
-        # Ordena por mais recente primeiro
         return queryset.order_by('-data_hora')
 
 

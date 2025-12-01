@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User  # Importar User do Django
 
 TIPO = [
     ('smartphones', 'smartphones'),
@@ -8,12 +8,12 @@ TIPO = [
 ]
 
 class Usuario(models.Model):
-    email= models.CharField(max_length=30)
-    senha= models.CharField(max_length=10)
+    email = models.CharField(max_length=30)
+    senha = models.CharField(max_length=10)
 
     def __str__(self):
         return self.email
-    
+
 
 class Estoque(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO)
@@ -25,19 +25,21 @@ class Estoque(models.Model):
     quantidade = models.IntegerField()
 
     def __str__(self):
-        return  f"{self.tipo} - {self.id}"
-    
+        return f"{self.tipo} - {self.id}"
+
 
 class Historico(models.Model):
     TIPO_OPERACAO = [
         ('entrada', 'Entrada'),
         ('saida', 'Saída'),
     ]
-    responsavel = models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    produto = models.ForeignKey(Estoque, on_delete=models.CASCADE )
+    
+    # Agora aponta para User do Django (superuser)
+    responsavel = models.ForeignKey(User, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Estoque, on_delete=models.CASCADE)
     tipo_operacao = models.CharField(max_length=10, choices=TIPO_OPERACAO)
     quantidade = models.IntegerField()
     data_hora = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.responsavel} - {self.produto.tipo} - {self.tipo_operacao} - {self.quantidade} unidades  - {self.data_hora}"
+        return f"{self.responsavel.username} - {self.produto.tipo} - {self.tipo_operacao} - {self.quantidade} unidades - {self.data_hora}"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FormLogin.css';
-import img from "../assets/img.png"; 
+// import img from "../assets/img.png"; 
 
 export function FormLogin({ onLoginSuccess }) {
     const [username, setUsername] = useState('');
@@ -13,7 +13,7 @@ export function FormLogin({ onLoginSuccess }) {
         e.preventDefault();
         setErro(null);
 
-        const response = await fetch('http://localhost:8000/login/', {
+        const response = await fetch('http://127.0.0.1:8000/api/login/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -23,7 +23,7 @@ export function FormLogin({ onLoginSuccess }) {
         if (response.ok) {
             localStorage.setItem('access_token', data.access);
             if (onLoginSuccess) onLoginSuccess();
-            navigate('/');
+            navigate('/Estoque');
         } else {
             setErro('Usuário ou senha inválidos');
         }
@@ -32,7 +32,7 @@ export function FormLogin({ onLoginSuccess }) {
     return (
         <div className="login-container">
             <div className="image-section">
-                <img src={img} alt="Smart City" />
+                {/* <img src={img} alt="Smart City" /> */}
             </div>
             <div className="form-section">
                 <h1>Login</h1>

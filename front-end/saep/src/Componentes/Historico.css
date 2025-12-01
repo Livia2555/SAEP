@@ -1,0 +1,146 @@
+/* Container principal */
+.historico-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Cabeçalho */
+.historico-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.historico-titulo {
+  font-size: 2rem;
+  color: #1e90ff;
+}
+
+.historico-subtitulo {
+  color: #555;
+}
+
+/* Filtros */
+.historico-filtros {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.historico-select {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.historico-btn-limpar {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.historico-btn-limpar:hover {
+  background-color: #d9362b;
+}
+
+/* Loading / vazio */
+.historico-loading, .historico-vazio {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+}
+
+/* Tabela */
+.historico-tabela-wrapper {
+  overflow-x: auto;
+}
+
+.historico-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.historico-tabela th, .historico-tabela td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.historico-cabecalho th {
+  background-color: #1e90ff;
+  color: white;
+  font-weight: 600;
+}
+
+.historico-linha.linha-par {
+  background-color: #fff;
+}
+
+.historico-linha.linha-impar {
+  background-color: #f8f9fa;
+}
+
+.historico-linha:hover {
+  background-color: #e6f2ff;
+}
+
+/* Badges */
+.historico-badge.entrada {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.historico-badge.saida {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Quantidade */
+.historico-quantidade.entrada {
+  color: #155724;
+  font-weight: bold;
+}
+
+.historico-quantidade.saida {
+  color: #721c24;
+  font-weight: bold;
+}
+
+/* Responsável */
+.historico-username {
+  display: block;
+  font-weight: 500;
+}
+
+.historico-email {
+  display: block;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Footer */
+.historico-footer {
+  margin-top: 20px;
+  text-align: right;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .historico-tabela th, .historico-tabela td {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+}

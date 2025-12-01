@@ -1,0 +1,245 @@
+/* Container principal */
+.estoque-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Título */
+.estoque-titulo {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #1e90ff;
+}
+
+/* Linha de ações: filtro e botão */
+.estoque-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Filtro de tipo */
+.estoque-filtro {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Botão adicionar */
+.btn-criar {
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-criar:hover {
+  background-color: #0f78d1;
+}
+
+/* Tabela */
+.tabela-container {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.tabela th, .tabela td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabela th {
+  background-color: #1e90ff;
+  color: white;
+  font-weight: 600;
+}
+
+.tabela tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Botões da tabela */
+.btn-add, .btn-remover, .btn-editar, .btn-excluir-tabela {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-add {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #449d48;
+}
+
+.btn-remover {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-remover:hover {
+  background-color: #d9362b;
+}
+
+.btn-editar {
+  background-color: #ff9800;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #e68a00;
+}
+
+.btn-excluir-tabela {
+  background-color: #9c27b0;
+  color: white;
+}
+
+.btn-excluir-tabela:hover {
+  background-color: #7a1f91;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal principal */
+.modal {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.modal-sm {
+  width: 300px;
+}
+
+.modal-titulo {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #1e90ff;
+}
+
+.modal-texto {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Formulário do modal */
+.formulario .input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* Botões do modal */
+.modal-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-salvar {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-salvar:hover {
+  background-color: #449d48;
+}
+
+.btn-cancelar {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-cancelar:hover {
+  background-color: #d9362b;
+}
+
+.btn-excluir {
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-excluir:hover {
+  background-color: #7a1f91;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .tabela th, .tabela td {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+
+  .btn-add, .btn-remover, .btn-editar, .btn-excluir-tabela {
+    padding: 4px 8px;
+  }
+}
+
+.alerta-estoque-global {
+  background-color: #ffe6e6;
+  color: red;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid red;
+  border-radius: 5px;
+  text-align: center;
+}
