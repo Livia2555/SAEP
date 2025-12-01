@@ -39,22 +39,34 @@ export default function TabelaHistorico() {
                 <th>Quantidade</th>
               </tr>
             </thead>
+
             <tbody>
               {historico.map((item, index) => (
                 <tr
                   key={item.id}
                   className={`historico-linha ${index % 2 === 0 ? 'linha-par' : 'linha-impar'}`}
                 >
+                  {/* Data formatada */}
                   <td>{item.data_hora_formatada}</td>
+
+                  {/* Nome do responsável */}
                   <td>
                     <span className="historico-username">{item.responsavel_username}</span>
                   </td>
-                  <td>{item.produto_tipo}</td>
+
+                  {/* Nome + tipo do produto */}
+                  <td>
+                    {item.produto_nome} ({item.produto_tipo})
+                  </td>
+
+                  {/* Tipo de operação (badge) */}
                   <td>
                     <span className={`historico-badge ${item.tipo_operacao}`}>
                       {item.tipo_operacao_display}
                     </span>
                   </td>
+
+                  {/* Quantidade com cor */}
                   <td>
                     <span className={`historico-quantidade ${item.tipo_operacao}`}>
                       {item.quantidade}
@@ -63,6 +75,7 @@ export default function TabelaHistorico() {
                 </tr>
               ))}
             </tbody>
+
           </table>
         </div>
       )}

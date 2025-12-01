@@ -16,6 +16,7 @@ class Usuario(models.Model):
 
 
 class Estoque(models.Model):
+    nome = models.CharField(max_length=100, default="Sem nome")
     tipo = models.CharField(max_length=20, choices=TIPO)
     tensao = models.IntegerField()  
     dimencoes = models.CharField(max_length=20)
@@ -25,7 +26,7 @@ class Estoque(models.Model):
     quantidade = models.IntegerField()
 
     def __str__(self):
-        return f"{self.tipo} - {self.id}"
+        return f"{self.nome} - {self.tipo}"
 
 
 class Historico(models.Model):

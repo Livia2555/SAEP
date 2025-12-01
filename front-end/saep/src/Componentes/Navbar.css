@@ -37,3 +37,10 @@
 .logout:hover {
     background-color: #c82333;
 }
+
+.usuario-logado {
+  margin-left: auto;
+  margin-right: 20px;
+  font-weight: bold;
+  color: #000000;
+}

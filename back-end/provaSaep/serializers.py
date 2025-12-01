@@ -35,6 +35,7 @@ class EstoqueSerializer(serializers.ModelSerializer):
         model = Estoque
         fields = [
             'id',
+            'nome',
             'tipo',
             'tipo_display',
             'tensao',
@@ -63,23 +64,20 @@ class EstoqueSerializer(serializers.ModelSerializer):
 
 
 class HistoricoSerializer(serializers.ModelSerializer):
-    """Serializer para leitura do histórico (GET)"""
-    
-    # Campos do superuser (User do Django)
+    # Dados do usuário
     responsavel_id = serializers.IntegerField(source='responsavel.id', read_only=True)
     responsavel_username = serializers.CharField(source='responsavel.username', read_only=True)
     responsavel_email = serializers.CharField(source='responsavel.email', read_only=True)
-    
-    # Campos do produto
+
+    # Dados do produto
     produto_id = serializers.IntegerField(source='produto.id', read_only=True)
+    produto_nome = serializers.CharField(source='produto.nome', read_only=True)
     produto_tipo = serializers.CharField(source='produto.tipo', read_only=True)
-    
-    # Tipo de operação formatado
+
     tipo_operacao_display = serializers.CharField(source='get_tipo_operacao_display', read_only=True)
-    
-    # Data formatada
+
     data_hora_formatada = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = Historico
         fields = [
@@ -88,30 +86,38 @@ class HistoricoSerializer(serializers.ModelSerializer):
             'responsavel_id',
             'responsavel_username',
             'responsavel_email',
+
             'produto',
             'produto_id',
+            'produto_nome',
             'produto_tipo',
+
             'tipo_operacao',
             'tipo_operacao_display',
+
             'quantidade',
             'data_hora',
             'data_hora_formatada'
         ]
+
         read_only_fields = [
             'id',
             'data_hora',
             'responsavel_id',
             'responsavel_username',
             'responsavel_email',
+
             'produto_id',
+            'produto_nome',
             'produto_tipo',
+
             'tipo_operacao_display',
             'data_hora_formatada'
         ]
-    
+
     def get_data_hora_formatada(self, obj):
-        """Formata a data/hora no padrão brasileiro"""
         return obj.data_hora.strftime('%d/%m/%Y %H:%M:%S')
+
 
 
 class EntradaSaidaSerializer(serializers.Serializer):
